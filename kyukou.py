@@ -61,7 +61,7 @@ def main(id, password):
     elif(day == 5):
         browser.find_element_by_css_selector('ol[class="flex-control-nav flex-control-paging"] > li:nth-of-type(6)').click()
     elif(day == 6):
-        pass
+        print("oho")
 
     # スクレイピングしたページデータを整形する
     html = browser.page_source
