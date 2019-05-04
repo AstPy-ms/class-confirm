@@ -21,7 +21,7 @@ Campus Square を使っている大学生は全員使えると思います
 [この記事](https://support.discordapp.com/hc/ja/articles/228383668-%E3%82%BF%E3%82%A4%E3%83%88%E3%83%AB-Webhooks%E3%81%B8%E3%81%AE%E5%BA%8F%E7%AB%A0) の**WEBHOOKの作成**欄を見てトレースしてください  
 
 
-- kyukou.pyに、**WebhookのURL**を書き入れる
+- kyukou.pyに**ID**、**パスワード**、**WebhookのURL**を書き入れる
 
 - kyukoubot.pyに**Botのトークン**を書き入れる
 

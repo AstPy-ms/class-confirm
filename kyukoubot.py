@@ -21,12 +21,14 @@ async def on_ready():
 async def on_message(message):
 
     if message.content.startswith("設定"):
-        disname = message.author.name
-        a = message.content
-        list = a.split()
-        print(list, disname)
-        database.insert(disname, list[1], list[2])
-        await message.channel.purge()
+        if client.user != message.author.name:
+            disname = message.author.name
+            a = message.content
+            list = a.split()
+            print(list, disname)
+            database.insert(disname, list[1], list[2])
+            await message.channel.purge()
+            await channel.send("設定完了しました。休講情報を取ってくるには、「休講」と言ってみてください。")
 
     if message.content.startswith("休講"):
         if client.user != message.author.name:
@@ -39,6 +41,11 @@ async def on_message(message):
             kyukou.main(id, password)         # kyukou.py
             print("OK")
 
+    if message.content.startswith("消去"):
+        if client.user != message.author.name:
+            await message.channel.purge()
+
 # ここにはdiscordのbotのトークンを入れる / fill in "token"
 TOKEN = gosh.requestsTOKEN()
 client.run(TOKEN)
+1

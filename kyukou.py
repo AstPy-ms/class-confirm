@@ -70,8 +70,10 @@ def main(id, password):
     # 休講情報を取ってくる
     if(day == 0):
         info = soup.select("li[class='slide-first flex-active-slide'] > ul[class=campussmart-list] > li[class='first'] > table > tbody")
-    else:
+    elif(day >= 1 and day < 5):
         info = soup.select("li[class='flex-active-slide'] > ul[class=campussmart-list] > li[class='first'] > table > tbody")
+    else:
+        info = soup.select("ul[class=campussmart-list] > li[class='first'] > table > tbody")
 
     time.sleep(0.5)
 
