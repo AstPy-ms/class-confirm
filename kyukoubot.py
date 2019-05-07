@@ -28,6 +28,7 @@ async def on_message(message):
             print(list, disname)
             database.insert(disname, list[1], list[2])
             await message.channel.purge()
+            channel = message.channel
             await channel.send("設定完了しました。休講情報を取ってくるには、「休講」と言ってみてください。")
 
     if message.content.startswith("休講"):
@@ -38,7 +39,7 @@ async def on_message(message):
             disname = message.author.name
             id = database.searchid(disname)
             password = database.searchpass(disname)
-            kyukou.main(id, password)         # kyukou.py
+            kyukou.main(id, password, disname)         # kyukou.py
             print("OK")
 
     if message.content.startswith("消去"):

@@ -21,6 +21,10 @@ def searchid(disname):
 
     return id
 
+    conn.commit()
+    conn.close()
+
+
 def searchpass(disname):
 
     # データベースにアクセス
@@ -37,6 +41,9 @@ def searchpass(disname):
 
     return password
 
+    conn.commit()
+    conn.close()
+
 def insert(disname, id, password):
 
     # データベースにアクセス
@@ -52,11 +59,43 @@ def insert(disname, id, password):
     curs.execute("insert into customer values(?, ?, ?)", [disname, id, password])
 
     select_sql = 'select * from customer'
+
     for row in curs.execute(select_sql):
         print(row)
 
-    # curs.execute("drop table customer")
-    # curs.execute("CREATE TABLE customer(name text, username text, password text);")
+    conn.commit()
+    conn.close()
+
+'''
+    curs.execute("drop table customer")
+    curs.execute("create table customer(name text, username text, password text);")
+
+    for row in curs.execute("select * from customer"):
+        print(row)
+        
+'''
+
+def searchurl(disname):
+
+    # データベースにアクセス
+    conn = sqlite3.connect("base9.sqlite")
+    curs = conn.cursor()
+
+    print(disname)
+
+    #curs.execute("drop table customer")
+    #curs.execute("create table customer(name text, url text);")
+    #curs.execute("insert into customer values(?, ?)",[disname, "https://discordapp.com/api/webhooks/574167277071761429/mr74pyM_WNR5usMuWZAxf7uX2W10Gv7CS6EsjCQq-uun99mYrdUiM3JVSqKgVwMfFFj7"])
+
+    for row in curs.execute("select * from customer"):
+        print(row)
+
+    for row in curs.execute("select url from customer where name = ?",[disname]):
+        print(row)
+        d = str(row)
+
+    # print(d)
+    return d
 
     conn.commit()
     conn.close()

@@ -1,3 +1,5 @@
+# 今回は動的サイトのためsleep関数を多用する
+
 #encoding:utf-8
 import database
 import time
@@ -9,26 +11,30 @@ from selenium.webdriver.support.wait import WebDriverWait
 from discord_webhook import DiscordWebhook
 import gosh
 
+# 曜日を取得する
 def youbi():
     d = datetime.datetime.now()
     return (d.weekday())
 
-def main(id, password):
+# main関数
+# ここで実際にスクリーンショットを取ってWebhookでdiscordに送信
+def main(id, password, disname):
     # Headless Firefoxを起動させて休講情報のページへ移動
     options = Options()
     options.add_argument('-headless')
-    browser = Firefox(executable_path='geckodriver', options=options)
-    browser.set_window_size(1080, 2160)         # ウィンドウサイズを調整
+    browser = Firefox(executable_path='geckodriver', options=options)       # Firefoxを起動
+    browser.set_window_size(1080, 2160)                                     # ウィンドウサイズを調整
     # wait = WebDriverWait(browser, timeout=10)
-    print(id, password)
+    # print(id, password)
 
+    # Campus Squareにログインする
     browser.get('https://jjh.tmu.ac.jp/campusweb/campusportal.do')
     browser.find_element_by_id("userNameInput").send_keys(id)               # ID
     browser.find_element_by_id("passwordInput").send_keys(password)      # Password
     browser.find_element_by_css_selector('button[type="submit"]').click()
 
     # 休憩
-    time.sleep(1)
+    time.sleep(1.2)
 
     # 休講情報のページに飛ぶ
     browser.find_element_by_id("tab-kh").click()
@@ -48,6 +54,7 @@ def main(id, password):
     # 曜日判定してそのページに飛ぶ
     day = youbi()
     print(day)
+
     if(day == 0):
         pass
     elif(day == 1):
@@ -67,7 +74,9 @@ def main(id, password):
     html = browser.page_source
     soup = BeautifulSoup(html, "html.parser")
 
-    # 休講情報を取ってくる
+
+    '''
+    # 休講情報を取ってくる(HTML)
     if(day == 0):
         info = soup.select("li[class='slide-first flex-active-slide'] > ul[class=campussmart-list] > li[class='first'] > table > tbody")
     elif(day >= 1 and day < 5):
@@ -75,14 +84,20 @@ def main(id, password):
     else:
         info = soup.select("ul[class=campussmart-list] > li[class='first'] > table > tbody")
 
+    # print(info)
+    '''
+
     time.sleep(0.5)
 
     # スクリーンショットを撮る
     browser.save_screenshot("paper.png")
 
-    print(info)
-
-    URL = gosh.requestsURL()
+    # WebhookのURLを取得しゴミを排除する
+    URL = database.searchurl(disname)
+    URL = URL[2:]
+    URL = URL[:-3]
+    print(URL)
+    # URL = gosh.requestsURL()
     webhook = DiscordWebhook(url = URL, username = 'astpy')
 
     # 写真を送る
