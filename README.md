@@ -5,7 +5,6 @@ Campus Square を使っている大学生は全員使えると思います
 ## discord bot としてサービス予定
 
 クラウドファンディングをするのでぜひ協力してください!!!!!!!
-ご協力は [こちら](https://camp-fire.jp/projects/view/156651)
 
 ## テスト環境
 
