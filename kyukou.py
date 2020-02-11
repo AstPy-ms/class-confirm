@@ -21,36 +21,40 @@ def youbi():
 def main(id, password, disname):
     # Headless Firefoxを起動させて休講情報のページへ移動
     options = Options()
-    options.add_argument('-headless')
+    # options.add_argument('-headless')
     browser = Firefox(executable_path='geckodriver', options=options)       # Firefoxを起動
     browser.set_window_size(1080, 2160)                                     # ウィンドウサイズを調整
     # wait = WebDriverWait(browser, timeout=10)
     # print(id, password)
 
-    # Campus Squareにログインする
-    browser.get('https://jjh.tmu.ac.jp/campusweb/campusportal.do')
-    browser.find_element_by_id("userNameInput").send_keys(id)               # ID
-    browser.find_element_by_id("passwordInput").send_keys(password)      # Password
-    browser.find_element_by_css_selector('button[type="submit"]').click()
+    # 学生ポータルにログインする
+    browser.get('https://portal.tmu.ac.jp/uniprove_pt/UnLoginControlSP')
+    time.sleep(0.5)
+    browser.find_element_by_id("username").send_keys(id)               # ID
+    browser.find_element_by_id("password").send_keys(password)      # Password
+    browser.find_element_by_name('_eventId_proceed').click()
 
     # 休憩
     time.sleep(1.2)
 
+    # PC版をクリック
+    browser.find_element_by_css_selector('p[class="pc_link"] > a[class="ui-link"]').click()
+
     # 休講情報のページに飛ぶ
-    browser.find_element_by_id("tab-kh").click()
+    browser.find_element_by_css_selector('ul[class="link_item"] > li:nth-of-type(4) > span > a[href="javascript:void(0);"]').click()
 
     # 休憩
     time.sleep(0.5)
 
-    # スマホ版サイトに飛ぶ
-    browser.find_element_by_id("portalsmart").click()
-
-    # 休憩
-    time.sleep(0.5)
+    # 検索条件を絞る
+    browser.find_element_by_id("chapter").click()
+    browser.find_element_by_id("chkEtrdFlg_1").click()
+    browser.find_element_by_name("ESearch").click()
 
     # 休講情報一覧に飛ぶ
-    browser.find_element_by_class_name("button").click()
+    # browser.find_element_by_class_name("button").click()
 
+    """
     # 曜日判定してそのページに飛ぶ
     day = youbi()
     print(day)
@@ -73,7 +77,7 @@ def main(id, password, disname):
     # スクレイピングしたページデータを整形する
     html = browser.page_source
     soup = BeautifulSoup(html, "html.parser")
-
+    """
 
     '''
     # 休講情報を取ってくる(HTML)
@@ -92,12 +96,15 @@ def main(id, password, disname):
     # スクリーンショットを撮る
     browser.save_screenshot("paper.png")
 
+    """
     # WebhookのURLを取得しゴミを排除する
     URL = database.searchurl(disname)
     URL = URL[2:]
     URL = URL[:-3]
     print(URL)
     # URL = gosh.requestsURL()
+    """
+    URL = gosh.requestsURL()
     webhook = DiscordWebhook(url = URL, username = 'astpy')
 
     # 写真を送る

@@ -1,4 +1,5 @@
 import discord
+import datetime
 import kyukou
 import database
 import gosh
@@ -25,7 +26,7 @@ async def on_message(message):
             disname = message.author.name
             a = message.content
             list = a.split()
-            print(list, disname)
+            # print(list, disname)
             database.insert(disname, list[1], list[2])
             await message.channel.purge()
             channel = message.channel
@@ -33,14 +34,21 @@ async def on_message(message):
 
     if message.content.startswith("休講"):
         if client.user != message.author.name:
-            print(message.author.name)
-            channel = message.channel
-            await channel.send("Beep, beep. Now loading...")
-            disname = message.author.name
-            id = database.searchid(disname)
-            password = database.searchpass(disname)
-            kyukou.main(id, password, disname)         # kyukou.py
-            print("OK")
+            day = kyukou.youbi()
+            print(day)
+            
+            if(day == 6):
+                channel = message.channel
+                await channel.send("今日は日曜日です。ゆっくり休んでくださいね。")
+            else:
+                print(message.author.name)
+                channel = message.channel
+                await channel.send("Beep, beep. Now loading...")
+                disname = message.author.name
+                id = database.searchid(disname)
+                password = database.searchpass(disname)
+                kyukou.main(id, password, disname)         # kyukou.py
+                print("OK")
 
     if message.content.startswith("消去"):
         if client.user != message.author.name:
@@ -49,4 +57,3 @@ async def on_message(message):
 # ここにはdiscordのbotのトークンを入れる / fill in "token"
 TOKEN = gosh.requestsTOKEN()
 client.run(TOKEN)
-1
