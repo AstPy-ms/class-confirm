@@ -1,15 +1,19 @@
-## 首都大生が休講情報を取ってくるdiscord botを作っています
+## 大学生が休講情報を取ってくるdiscord botを作ってみた結果wwww
 
-## Geckodriverが必要です
+Campus Square を使っている大学生は全員使えると思います
 
-[ここ](https://github.com/mozilla/geckodriver/releases)からダウンロードして`/usr/local/bin`に入れる
+## discord bot としてサービス予定
+
+クラウドファンディングをするのでぜひ協力してください!!!!!!!
+ご協力は [こちら](https://camp-fire.jp/projects/view/156651)
 
 ## テスト環境
 
-OS : Ubuntu 19.10  
+OS : Ubuntu 19.04  
 Language : Python 3.7  
-Develop Environment : Visual Studio Code
+Environment : Pycharm
 
 ## 使い方等質問
 
 Twitter : @kuge_masa
+Discord : masa#0662

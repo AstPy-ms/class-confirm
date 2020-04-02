@@ -9,7 +9,9 @@ from selenium.webdriver import Firefox
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from discord_webhook import DiscordWebhook
+import subprocess
 import gosh
+import cryptography
 
 # 曜日を取得する
 def youbi():
@@ -21,11 +23,11 @@ def youbi():
 def main(id, password, disname):
     # Headless Firefoxを起動させて休講情報のページへ移動
     options = Options()
-    # options.add_argument('-headless')
+    #options.add_argument('-headless')
     browser = Firefox(executable_path='geckodriver', options=options)       # Firefoxを起動
     browser.set_window_size(1080, 2160)                                     # ウィンドウサイズを調整
     # wait = WebDriverWait(browser, timeout=10)
-    # print(id, password)
+    print(id, password)
 
     # 学生ポータルにログインする
     browser.get('https://portal.tmu.ac.jp/uniprove_pt/UnLoginControlSP')
@@ -112,4 +114,6 @@ def main(id, password, disname):
         webhook.add_file(file=f.read(), filename='example.jpg')
 
     webhook.execute()
+
+    subprocess.check_call("rm -rf ./paper.png", shell=True)
 
