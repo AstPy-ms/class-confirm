@@ -1,15 +1,16 @@
-## 首都大生が休講情報を取ってくるdiscord botを作っています
+## 東京都立大学生なら使えます
 
-## Geckodriverが必要です
+## discord bot としてサービス予定
 
-[ここ](https://github.com/mozilla/geckodriver/releases)からダウンロードして`/usr/local/bin`に入れる
+2020年5月にリリース予定です。
 
 ## テスト環境
 
 OS : Ubuntu 19.10  
-Language : Python 3.7  
-Develop Environment : Visual Studio Code
+Language : Python 3.8  
+Environment : Pycharm
 
 ## 使い方等質問
 
 Twitter : @kuge_masa
+Discord : masa#0662

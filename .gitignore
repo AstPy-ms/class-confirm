@@ -1,2 +1,6 @@
 *.sqlite
 gosh.py
+encdata
+test.py
+__pycache__
+*.log
